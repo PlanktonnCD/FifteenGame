@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,12 +10,19 @@ namespace Spots
     {
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Button _button;
+        [SerializeField] private float _moveDuration;
         private int _number;
         private int _currentPosition;
 
         public Button Button => _button;
         public int CurrentPosition => _currentPosition;
+        public int Number => _number;
 
+        public void MoveSpot(Vector3 position)
+        {
+            transform.DOMove(position, _moveDuration);
+        }
+        
         public void SetCurrentPosition(int position)
         {
             _currentPosition = position;

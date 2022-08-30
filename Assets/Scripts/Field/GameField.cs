@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using GameBootstrap;
 using RotaryHeart.Lib.SerializableDictionary;
 using Spots;
 using UnityEngine;
+using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Field
 {
@@ -10,10 +14,19 @@ namespace Field
     {
         [SerializeField] private List<Transform> _objectPositions = new List<Transform>();
         [SerializeField] private SpotManager _spotManager;
-        
+
         private List<Spot> _spots = new List<Spot>();
         private int _currentEmptyPosition;
+        private SignalBus _signalBus;
 
+        private int RowsCount => (int)Math.Sqrt(_objectPositions.Count);
+
+        [Inject]
+        private void Construct(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+        }
+        
         public void SpawnSpots()
         {
             _spots = _spotManager.CreateSpots(_objectPositions.Count-1);
@@ -28,7 +41,7 @@ namespace Field
                 var positionNumber = randomList[i];
                 spot.SetNumber(i+1);
                 spot.SetCurrentPosition(positionNumber);
-                spot.transform.position = _objectPositions[positionNumber].transform.position;
+                spot.transform.DOMove( _objectPositions[positionNumber].transform.position,0.2f );
                 spot.Button.onClick.AddListener((() => TryMoveSpot(spot)));
             }
 
@@ -39,15 +52,30 @@ namespace Field
         {
             if (_currentEmptyPosition == spot.CurrentPosition + 1
                 || _currentEmptyPosition == spot.CurrentPosition - 1
-                || _currentEmptyPosition == spot.CurrentPosition + 4
-                || _currentEmptyPosition == spot.CurrentPosition - 4)
+                || _currentEmptyPosition == spot.CurrentPosition + RowsCount
+                || _currentEmptyPosition == spot.CurrentPosition - RowsCount)
             {
 
-                spot.transform.DOMove(_objectPositions[_currentEmptyPosition].position, 0.5f);
+                spot.MoveSpot(_objectPositions[_currentEmptyPosition].transform.position);
                 var newPosition = _currentEmptyPosition;
                 _currentEmptyPosition = spot.CurrentPosition;
                 spot.SetCurrentPosition(newPosition);
+                CheckOnWin();
             }
+        }
+
+        private void CheckOnWin()
+        {
+            foreach (var spot in _spots)
+            {
+                if (spot.CurrentPosition != spot.Number) return;
+                WinTheGame();
+            }
+        }
+
+        private void WinTheGame()
+        {
+            _signalBus.Fire(new GameEndSignal());
         }
         
         private List<int> GetRandomList()

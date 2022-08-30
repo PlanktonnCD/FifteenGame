@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numberText: {fileID: 7584327383313226194}
   _button: {fileID: 4672945079846231810}
+  _moveDuration: 0.5
 --- !u!114 &4672945079846231810
 MonoBehaviour:
   m_ObjectHideFlags: 0
