@@ -10,9 +10,10 @@ namespace Spots
     {
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Button _button;
-        [SerializeField] private float _moveDuration;
+        [SerializeField] private float _animationDuration;
         private int _number;
         private int _currentPosition;
+        private static float _shakePower = 0.02f;
 
         public Button Button => _button;
         public int CurrentPosition => _currentPosition;
@@ -20,7 +21,12 @@ namespace Spots
 
         public void MoveSpot(Vector3 position)
         {
-            transform.DOMove(position, _moveDuration);
+            transform.DOMove(position, _animationDuration);
+        }
+
+        public void ShakeSpot()
+        {
+            transform.DOShakePosition(_animationDuration, _shakePower);
         }
         
         public void SetCurrentPosition(int position)

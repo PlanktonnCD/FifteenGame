@@ -61,7 +61,9 @@ namespace Field
                 _currentEmptyPosition = spot.CurrentPosition;
                 spot.SetCurrentPosition(newPosition);
                 CheckOnWin();
+                return;
             }
+            spot.ShakeSpot();
         }
 
         private void CheckOnWin()

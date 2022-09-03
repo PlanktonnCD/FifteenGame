@@ -6,6 +6,8 @@ namespace PlayerData
     {
         private HighScoreData _highScoreData = new HighScoreData();
         private DiContainer _container;
+
+        public HighScoreData HighScoreData => _highScoreData;
         
         [Inject]
         private void Construct(DiContainer container)

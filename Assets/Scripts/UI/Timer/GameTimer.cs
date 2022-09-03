@@ -40,28 +40,23 @@ namespace Timer
         {
             _gameIsActive = false;
         }
-        
+
         private IEnumerator TimeCount()
         {
-            while (_gameIsActive)
+            while (_gameIsActive == true)
             {
-                while (_gameOnPause == false)
+                yield return new WaitForSeconds(1);
+                _seconds++;
+                if (_seconds == 60)
                 {
-                    yield return new WaitForSeconds(1);
-                    _seconds++;
-                    if (_seconds == 60)
-                    {
-                        _minutes++;
-                        _seconds = 0;
-                    }
-                    SetTimerText();
-                } 
+                    _minutes++;
+                    _seconds = 0;
+                }
+
+                SetTimerText();
             }
         }
 
-        private void OnApplicationPause(bool pauseStatus)
-        {
-            _gameOnPause = pauseStatus;
-        }
+
     }
 }
