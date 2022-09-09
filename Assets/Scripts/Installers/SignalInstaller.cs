@@ -1,4 +1,5 @@
 using GameBootstrap;
+using Timer;
 using UnityEngine;
 using Zenject;
 
@@ -9,5 +10,9 @@ public class SignalInstaller : MonoInstaller
         SignalBusInstaller.Install(Container);
         Container
             .DeclareSignal<GameEndSignal>();
+        Container
+            .DeclareSignal<SendTimerInfoSignal>();
+        Container
+            .DeclareSignal<RestartGameSignal>();
     }
 }

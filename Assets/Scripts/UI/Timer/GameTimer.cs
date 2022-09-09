@@ -39,6 +39,7 @@ namespace Timer
         private void OnEndGame()
         {
             _gameIsActive = false;
+            _signalBus.Fire(new SendTimerInfoSignal(_seconds, _minutes));
         }
 
         private IEnumerator TimeCount()

@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI
 {
-    public class UIContainer : MonoBehaviour
+    [Serializable]
+    public class UIContainer
     {
         [SerializeField] private List<UIPanel> _uiScreens;
 
@@ -13,6 +15,7 @@ namespace UI
             {
                 if (uiScreen is T)
                 {
+                    uiScreen.Init();
                     return uiScreen;
                 }
             }

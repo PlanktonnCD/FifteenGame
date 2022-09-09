@@ -12,11 +12,13 @@ namespace UI
         {
             await HideLastScreen();
             var screen = _uiContainer.GetScreen<T>();
+            _currentPanel = screen;
             screen.Show();
         }
 
         public async UniTask HideLastScreen()
         {
+            if(_currentPanel == null) return;
             await _currentPanel.Hide();
         }
     }

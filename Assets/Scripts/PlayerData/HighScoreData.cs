@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace PlayerData
 {
@@ -15,6 +16,26 @@ namespace PlayerData
             highScore.Minutes = minutes;
             highScore.Seconds = seconds;
             _highScores.Add(highScore);
+            SortHighScores();
+        }
+        
+        private void SortHighScores()
+        {
+            for (int i = 0; i < _highScores.Count; i++)
+            {
+                var highScore = _highScores[i];
+                var j = i;
+                var seconds = highScore.Seconds;
+                seconds += highScore.Minutes * 60;
+                while ((j>=1) &&(_highScores[j-1].Minutes*60 + _highScores[j-1].Seconds > seconds))
+                {
+                    var temp = _highScores[j];
+                    _highScores[j] = _highScores[j-1];
+                    _highScores[j-1] = temp;
+                    j--;
+                }
+                _highScores[j] = highScore;
+            }
         }
     }
 

@@ -6,6 +6,11 @@ namespace UI
     public class UIPanel : MonoBehaviour
     {
         [SerializeField] protected UIAnimation _uiAnimation;
+
+        public virtual void Init()
+        {
+            
+        }
         
         public virtual async UniTask Show()
         {
