@@ -1,9 +1,9 @@
-using System;
 using Field;
 using PlayerData;
 using Timer;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace GameBootstrap
@@ -12,6 +12,7 @@ namespace GameBootstrap
     {
         [SerializeField] private GameField _gameField;
         [SerializeField] private GameTimer _timer;
+        [SerializeField] private Button _exitGameButton;
         private DataManager _dataManager;
         private SignalBus _signalBus;
         private UIManager _uiManager;
@@ -31,6 +32,7 @@ namespace GameBootstrap
             _gameField.SpawnSpots();
             _gameField.SetSpots();
             _timer.SetTimer();
+            _exitGameButton.onClick.AddListener(()=>Application.Quit());
         }
 
         private void RestartGame()
