@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.36078432, g: 0.13725491, b: 0.13725491, a: 1}
+  m_Color: {r: 0.028924897, g: 0.2166845, b: 0.4716981, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -822,7 +822,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 613722356}
-  - {fileID: 613722353}
   - {fileID: 613722357}
   _installerPrefabs: []
   _autoRun: 1
@@ -1564,6 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2595680a884941a8f8f8af2cedae87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spotPrefab: {fileID: 8072345314090019815, guid: 331807b541bcfe849a899d349c23d34a, type: 3}
 --- !u!114 &775961557
 MonoBehaviour:
   m_ObjectHideFlags: 0

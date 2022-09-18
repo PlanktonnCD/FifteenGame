@@ -1,20 +1,15 @@
 using System.Collections.Generic;
 using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
+using Utils;
 using Zenject;
 
 namespace Spots
 {
     public class SpotManager : MonoBehaviour
     {
-        private SpotFactory _spotFactory;
-
-        [Inject]
-        private void Construct(SpotFactory spotFactory)
-        {
-            _spotFactory = spotFactory;
-        }
-
+        [SerializeField] private Spot _spotPrefab;
+        
         public List<Spot> CreateSpots(int numberOfSpots)
         {
             var spotList = new List<Spot>();
@@ -27,10 +22,13 @@ namespace Spots
 
             return spotList;
         }
+        
 
         private Spot GetSpot()
         {
-            return _spotFactory.CreateSpot(transform);
+            return Instantiate(_spotPrefab, transform).GetComponent<Spot>();
         }
+        
+        
     }
 }

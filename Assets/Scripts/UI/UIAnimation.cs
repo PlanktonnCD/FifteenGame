@@ -13,16 +13,14 @@ namespace UI
         
         public async UniTask ShowAnimation()
         {
-            _panelTransform.position = Vector2.up * Screen.height / 2 + Vector2.up *_panelTransform.rect.height;
             _panelTransform.gameObject.SetActive(true);
-            _panelTransform.DOMoveY(0, _animationDuration);
+            _panelTransform.DOScale(1, _animationDuration).From(0);
             await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
         }
 
         public async UniTask HideAnimation()
         {
-            var endYPosition = -(Screen.height / 2 + _panelTransform.rect.height);
-            _panelTransform.DOMoveY(endYPosition, _animationDuration);
+            _panelTransform.DOScale(0, _animationDuration);
             await UniTask.Delay(TimeSpan.FromSeconds(_animationDuration));
             _panelTransform.gameObject.SetActive(false);
         }

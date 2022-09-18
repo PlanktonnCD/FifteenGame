@@ -11,9 +11,11 @@ namespace Spots
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private Button _button;
         [SerializeField] private float _animationDuration;
+        
         private int _number;
         private int _currentPosition;
         private static float _shakePower = 0.02f;
+        private bool _isShake;
 
         public Button Button => _button;
         public int CurrentPosition => _currentPosition;
@@ -26,7 +28,11 @@ namespace Spots
 
         public void ShakeSpot()
         {
-            transform.DOShakePosition(_animationDuration, _shakePower);
+            if(_isShake == true) return;
+            var seq = DOTween.Sequence();
+            _isShake = true;
+            seq.Append(transform.DOShakePosition(_animationDuration, _shakePower));
+            seq.AppendCallback(() => _isShake = false);
         }
         
         public void SetCurrentPosition(int position)

@@ -6,6 +6,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 using Spots;
 using UI;
 using UnityEngine;
+using Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -39,11 +40,12 @@ namespace Field
         public void SetSpots()
         {
             _gameIsEnd = false;
-            var randomList = GetRandomList();
-            while (IsSolvable(randomList) == false)
+            var randomList = UtilsMath.GetRandomList(_spots.Count);
+            while (UtilsMath.IsSolvable(randomList) == false)
             {
-                randomList = GetRandomList();
+                randomList = UtilsMath.GetRandomList(_spots.Count);
             }
+            
             for (int i = 0; i < _spots.Count; i++)
             {
                 var spot = _spots[i];
@@ -89,35 +91,11 @@ namespace Field
             _gameIsEnd = true;
             _signalBus.Fire(new GameEndSignal());
             _uiManager.ShowScreen<UIWinPanel>();
-        }
-        
-        private List<int> GetRandomList()
-        {
-            var randomList = new List<int>();
+            
             for (int i = 0; i < _spots.Count; i++)
             {
-                var randomNumber = Random.Range(0, _spots.Count);
-                while (randomList.Contains(randomNumber) || randomNumber == i)
-                {
-                    randomNumber = Random.Range(0, _spots.Count);
-                }
-                randomList.Add(randomNumber);
+                _spots[i].Button.onClick.RemoveAllListeners();
             }
-            return randomList;
-        }
-        
-        private bool IsSolvable(List<int> randomList) 
-        {
-            int countInversions = 0;
- 
-            for (int i = 0; i < randomList.Count; i++) {
-                for (int j = 0; j < i; j++) {
-                    if (randomList[j] > randomList[i])
-                        countInversions++;
-                }
-            }
- 
-            return countInversions % 2 == 0;
         }
     }
 }
