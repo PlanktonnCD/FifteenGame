@@ -23,7 +23,7 @@ namespace Spots
 
         public void MoveSpot(Vector3 position)
         {
-            transform.DOMove(position, _animationDuration);
+            transform.DOMove(position, _animationDuration).SetEase(Ease.OutQuart);
         }
 
         public void ShakeSpot()

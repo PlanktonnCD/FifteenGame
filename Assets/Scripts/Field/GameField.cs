@@ -66,7 +66,6 @@ namespace Field
                 || _currentEmptyPosition == spot.CurrentPosition + RowsCount
                 || _currentEmptyPosition == spot.CurrentPosition - RowsCount)
             {
-
                 spot.MoveSpot(_objectPositions[_currentEmptyPosition].transform.position);
                 var newPosition = _currentEmptyPosition;
                 _currentEmptyPosition = spot.CurrentPosition;

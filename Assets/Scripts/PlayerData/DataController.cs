@@ -24,10 +24,5 @@ namespace PlayerData
             var input = File.ReadAllText(DATAPATH);
             return JsonConvert.DeserializeObject<HighScoreData>(input);
         }
-
-        public static void ResetProgress()
-        {
-            File.Delete(DATAPATH);
-        }
     }
 }
